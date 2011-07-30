@@ -4,3 +4,6 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 filetype plugin indent on
 
+source ~/.vim/vimrc.janus
+source ~/.vim/gvimrc.janus
+" janus sources ~/.vimrc.local and ~/.gvimrc.local
