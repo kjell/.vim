@@ -1,0 +1,110 @@
+syntax enable
+
+filetype plugin indent on
+
+set shiftround
+set smarttab
+set noswapfile
+
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+nnoremap ; :
+
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+cmap w!! w !sudo tee % >/dev/null
+
+set hidden
+
+set scrolloff=3
+set autoread
+"nnoremap <silent> <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+" http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
+map! jj <Esc>
+" imap jj <esc>
+
+" Remove trailing whitespace from code files on save
+function StripTrailingWhitespace()
+  " store current cursor location
+  silent exe "normal ma<CR>"
+  " store the current search value
+  let saved_search = @/
+
+  " delete the whitespace (e means don't warn if pattern not found)
+  %s/\s\+$//e
+
+  " restore old cursor location
+  silent exe "normal `a<CR>"
+  " restore the search value
+  let @/ = saved_search
+endfunction
+
+au BufWritePre * call StripTrailingWhitespace()
+
+set whichwrap=b,s,<,>,h,l
+
+autocmd BufReadPre *.pdf set ro nowrap
+autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+autocmd BufWritePost *.pdf silent !rm -rf ~/tmp/pdf/%
+autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
+autocmd BufWritePost *.pdf silent !until [ -e ~/tmp/pdf/% ]; do sleep 1; done
+autocmd BufWritePost *.pdf silent !mv ~/tmp/pdf/% %:p:h
+
+set backup
+set backupcopy=yes
+set backupskip=/tmp/*,~/.vim/backup/*
+set backupdir=~/.vim/backup
+au BufWritePre <buffer> let &backupext = '~' . localtime()
+function! DeleteOldBackups()
+    " Delete backups over 14 days old
+    call system('find ~/.vim/backup -mtime +14 -exec rm "{}" \;')
+endfunction
+au VimLeave * call DeleteOldBackups()
+
+source ~/.simplenoterc
+
+" https://github.com/AndrewRadev/splitjoin.vim/blob/master/doc/splitjoin.txt
+nmap sj :SplitjoinSplit<cr>
+nmap sk :SplitjoinJoin<cr>
+
+nnoremap <F5> :noh<return><esc>
+
+" source $MYVIMRC reloads the saved $MYVIMRC
+:nmap <Leader>reload :source $MYGVIMRC
+
+" opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
+:nmap <Leader>vrc :edit ~/.vimrc.local
+
+" http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
+set wildmenu
+set wildmode=list:longest,full
+
+runtime macros/matchit.vim
+
+let g:LustyJugglerSuppressRubyWarning = 1
+
+set shortmess=aIoO
+
+set pastetoggle=<F2>
+
+" fix <SNR>40_DiscretionaryEnd?
+let g:SuperTabDefaultCompletionType = "context"
+
+color solarized
+set background=dark
+
+let NERDTreeHijackNetrw = 0
+let NERDTreeShowBookmarks = 1
+nnoremap <silent> <F7> :NERDTreeToggle<CR>
+

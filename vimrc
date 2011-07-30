@@ -6,4 +6,5 @@ filetype plugin indent on
 
 source ~/.vim/vimrc.janus
 source ~/.vim/gvimrc.janus
-" janus sources ~/.vimrc.local and ~/.gvimrc.local
+source ~/.vim/vimrc.local
+source ~/.vim/gvimrc.local

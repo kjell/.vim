@@ -1,0 +1,17 @@
+set background=dark
+color solarized
+
+set go-=LRlr
+set go-=l
+set go-=L
+set go-=r
+set go-=R
+set go-=b
+
+" resize current buffer by +/- 5
+" http://stackoverflow.com/questions/4368690/with-vim-how-would-one-increase-the-vertical-split-window-size
+nnoremap <D-left> :vertical resize -5<cr>
+nnoremap <D-down> :resize +5<cr>
+nnoremap <D-up> :resize -5<cr>
+nnoremap <D-right> :vertical resize +5<cr>
+
