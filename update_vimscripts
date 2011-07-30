@@ -1,0 +1,21 @@
+#vim_plugin_task 
+
+scripts = [
+  ["templates", "http://www.vim.org/scripts/download_script.php?src_id=3747"],
+  ['Rename.vim', 'http://www.vim.org/scripts/download_script.php?src_id=7262'],
+  ['splitjoin'     , 'http://www.vim.org/scripts/download_script.php?src_id=16009'],
+  ['matchit'       , 'http://www.vim.org/scripts/download_script.php?src_id=8196'],
+  ['cheat.vim'         , 'http://www.vim.org/scripts/download_script.php?src_id=8748'],
+  ['gitignore.vim' , 'http://www.vim.org/scripts/download_script.php?src_id=10040'],
+  ["conque",           "http://conque.googlecode.com/files/conque_1.1.tar.gz"]  
+]
+
+Dir.chdir('bundle')
+scripts.each do |name, uri|
+  unless name =~ /tar\.gz/
+    `curl -L #{uri} > #{name}`
+  else
+    `curl -L #{uri} | tar -zxvf -`
+  end
+end
+
