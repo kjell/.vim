@@ -1,7 +1,5 @@
 syntax enable
 
-filetype plugin indent on
-
 set shiftround
 set smarttab
 set noswapfile
@@ -81,7 +79,7 @@ nmap sk :SplitjoinJoin<cr>
 nnoremap <F5> :noh<return><esc>
 
 " source $MYVIMRC reloads the saved $MYVIMRC
-:nmap <Leader>reload :source $MYGVIMRC
+:nmap <Leader>reload :source $MYVIMRC
 
 " opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
 :nmap <Leader>vrc :edit ~/.vimrc.local
@@ -106,5 +104,35 @@ set background=dark
 
 let NERDTreeHijackNetrw = 0
 let NERDTreeShowBookmarks = 1
-nnoremap <silent> <F7> :NERDTreeToggle<CR>
+nnoremap <silent> <F4> :NERDTreeToggle<CR>
+
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+
+set relativenumber
+set undofile
+
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+
+set colorcolumn=85
+
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+au FocusLost * :wa
+
+nnoremap <leader>w <C-w>v<C-w>l
+
+set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
 
