@@ -62,7 +62,7 @@ autocmd BufWritePost *.pdf silent !mv ~/tmp/pdf/% %:p:h
 set backup
 set backupcopy=yes
 set backupskip=/tmp/*,~/.vim/backup/*
-set backupdir=~/.vim/backup
+set backupdir=~/.vim/tmp/backup
 au BufWritePre <buffer> let &backupext = '~' . localtime()
 function! DeleteOldBackups()
     " Delete backups over 14 days old
@@ -110,6 +110,7 @@ nnoremap <silent> <F4> :NERDTreeToggle<CR>
 
 set relativenumber
 set undofile
+set undodir=~/.vim/tmp/undo
 
 nnoremap / /\v
 vnoremap / /\v
