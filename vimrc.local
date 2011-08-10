@@ -69,6 +69,9 @@ function! DeleteOldBackups()
     call system('find ~/.vim/backup -mtime +14 -exec rm "{}" \;')
 endfunction
 au VimLeave * call DeleteOldBackups()
+set undofile
+set undodir=~/.vim/tmp/undo
+set directory=~/.vim/tmp
 
 source ~/.simplenoterc
 
