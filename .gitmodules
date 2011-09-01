@@ -100,4 +100,7 @@
 	url = https://github.com/rstacruz/sparkup.git
 [submodule "bundle/vim-slim"]
 	path = bundle/vim-slim
-	url = https://github.com/bbommarito/vim-slim.git
+	url = https://github.com/xeeew/vim-slim.git
+[submodule "bundle/vim-ruby"]
+	path = bundle/vim-ruby
+	url = https://github.com/vim-ruby/vim-ruby.git
