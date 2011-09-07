@@ -104,3 +104,6 @@
 [submodule "bundle/vim-ruby"]
 	path = bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/ragtag"]
+	path = bundle/ragtag
+	url = https://github.com/tpope/vim-ragtag.git
