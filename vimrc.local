@@ -102,8 +102,10 @@ set pastetoggle=<F2>
 " fix <SNR>40_DiscretionaryEnd?
 let g:SuperTabDefaultCompletionType = "context"
 
-color solarized
+let g:solarized_termcolors=256
+set t_Co=16
 set background=dark
+color solarized
 
 let NERDTreeHijackNetrw = 0
 let NERDTreeShowBookmarks = 1
@@ -151,3 +153,7 @@ map <leader>c :botright cw 10<cr>
 
 map <space> /
 map <m-space> ?
+
+" fix issue with Enter mapping, LJ + snipmate?
+" https://github.com/sjbach/lusty/issues/20
+let g:SuperTabCrMapping = 0
