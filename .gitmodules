@@ -116,3 +116,6 @@
 [submodule "bundle/FuzzyFinder"]
 	path = bundle/FuzzyFinder
 	url = git://github.com/vim-scripts/FuzzyFinder.git
+[submodule "bundle/vim-19"]
+	path = bundle/vim-19
+	url = git://github.com/slack/vim-l9.git
