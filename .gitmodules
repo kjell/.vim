@@ -100,10 +100,19 @@
 	url = https://github.com/rstacruz/sparkup.git
 [submodule "bundle/vim-slim"]
 	path = bundle/vim-slim
-	url = https://github.com/xeeew/vim-slim.git
+	url = https://github.com/bbommarito/vim-slim.git
 [submodule "bundle/vim-ruby"]
 	path = bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
 [submodule "bundle/ragtag"]
 	path = bundle/ragtag
 	url = https://github.com/tpope/vim-ragtag.git
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
+[submodule "bundle/closetag.vim"]
+	path = bundle/closetag.vim
+	url = git://github.com/docunext/closetag.vim.git
+[submodule "bundle/FuzzyFinder"]
+	path = bundle/FuzzyFinder
+	url = git://github.com/vim-scripts/FuzzyFinder.git
