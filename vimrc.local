@@ -155,3 +155,7 @@ nmap <leader>t :FufTaggedFile<CR>
 let g:fuf_buffertag_ctagsPath='ctags'
 let g:fuf_buffertag__coffee='--language-force=coffee'
 let g:fuf_buffertag__sass='--language-force=sass'
+
+" Rails
+autocmd User Rails  Rnavcommand admin app/admin -glob=**/*
+autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_factory.rb
