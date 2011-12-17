@@ -119,3 +119,6 @@
 [submodule "bundle/vim-19"]
 	path = bundle/vim-19
 	url = git://github.com/slack/vim-l9.git
+[submodule "git-grep.vim"]
+	path = git-grep.vim
+	url = https://github.com/tjennings/git-grep-vim.git

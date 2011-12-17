@@ -150,3 +150,6 @@ let g:SuperTabCrMapping = 0
 nmap <leader>f :FufFileWithCurrentBufferDir<CR>
 nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
+let g:fuf_buffertag_ctagsPath='ctags'
+let g:fuf_buffertag__coffee='--language-force=coffee'
+let g:fuf_buffertag__sass='--language-force=sass'
