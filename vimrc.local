@@ -12,6 +12,7 @@ nnoremap m ,
 nnoremap , ;
 " semicolon for : and ;; for :!
 nnoremap ; :
+nnoremap ;; :!
 
 map <up> <nop>
 map <down> <nop>
@@ -78,10 +79,10 @@ nmap sk :SplitjoinJoin<cr>
 
 nnoremap <F5> :noh<return><esc>
 
-nmap <silent> <leader>reload :source ~/.vim/vimrc.local<CR>
+nmap <silent> <leader>reload :source ~/.vimrc<CR>
 nmap <leader>vimrc .vsplit ~/.vim/vimrc.local<CR>
-autocmd! bufwritepost ~/.vimrc source ~/.vimrc
-autocmd! bufwritepost ~/.vim/vimrc* source ~/.vimrc
+autocmd! bufwritepost ~/.vimrc :source ~/.vimrc
+autocmd! bufwritepost ~/.vim/*vimrc* :source ~/.vimrc
 
 " http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
 set wildmenu
@@ -145,10 +146,6 @@ map <leader>c :botright cw 10<cr>
 
 map <space> /
 map <m-space> ?
-
-" fix issue with Enter mapping, LJ + snipmate?
-" https://github.com/sjbach/lusty/issues/20
-let g:SuperTabCrMapping = 0
 
 nmap gp `[v`]
 
