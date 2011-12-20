@@ -7,6 +7,10 @@ set noswapfile
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+" m is repeat motion backwards, , forwards (because I'm remapping ; to :)
+nnoremap m ,
+nnoremap , ;
+" semicolon for : and ;; for :!
 nnoremap ; :
 
 map <up> <nop>
@@ -33,7 +37,7 @@ map! jj <Esc>
 " imap jj <esc>
 
 " Remove trailing whitespace from code files on save
-function StripTrailingWhitespace()
+function! StripTrailingWhitespace()
   " store current cursor location
   silent exe "normal ma<CR>"
   " store the current search value
@@ -74,11 +78,10 @@ nmap sk :SplitjoinJoin<cr>
 
 nnoremap <F5> :noh<return><esc>
 
-" source $MYVIMRC reloads the saved $MYVIMRC
-:nmap <Leader>reload :source $MYVIMRC<CR>
-
-" opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
-:nmap <Leader>vimrc :vsplit ~/.vim/vimrc.local<CR>
+nmap <silent> <leader>reload :source ~/.vim/vimrc.local<CR>
+nmap <leader>vimrc .vsplit ~/.vim/vimrc.local<CR>
+autocmd! bufwritepost ~/.vimrc source ~/.vimrc
+autocmd! bufwritepost ~/.vim/vimrc* source ~/.vimrc
 
 " http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
 set wildmenu
@@ -169,3 +172,5 @@ nnoremap <silent> H <C-w>h
 nnoremap <silent> L <C-w>l
 nnoremap <silent> I <C-w>k
 nnoremap <silent> M <C-w>j
+
+set cursorline
