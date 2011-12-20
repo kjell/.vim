@@ -74,7 +74,7 @@ set visualbell
 set guioptions-=T
 
 " ConqueTerm wrapper
-function StartTerm()
+function! StartTerm()
   execute 'ConqueTerm ' . $SHELL . ' --login'
   setlocal listchars=tab:\ \
 endfunction

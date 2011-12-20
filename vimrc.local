@@ -80,8 +80,10 @@ nnoremap <F5> :noh<return><esc>
 
 nmap <silent> <leader>reload :source ~/.vimrc<CR>
 nmap <leader>vimrc .vsplit ~/.vim/vimrc.local<CR>
-autocmd! bufwritepost ~/.vimrc :source ~/.vimrc
-autocmd! bufwritepost ~/.vim/*vimrc* :source ~/.vimrc
+augroup reload_vimrc
+  au!
+  au BufWritePost *vimrc* source ~/.vimrc
+augroup END
 
 " http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
 set wildmenu
