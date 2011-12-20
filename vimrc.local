@@ -19,19 +19,12 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
 cmap w!! w !sudo tee % >/dev/null
 
 set hidden
 
 set scrolloff=3
 set autoread
-"nnoremap <silent> <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
 map! jj <Esc>
@@ -79,7 +72,7 @@ nmap sk :SplitjoinJoin<cr>
 nnoremap <F5> :noh<return><esc>
 
 nmap <silent> <leader>reload :source ~/.vimrc<CR>
-nmap <leader>vimrc .vsplit ~/.vim/vimrc.local<CR>
+nmap <leader>vimrc :vsplit ~/.vim/vimrc.local<CR>
 augroup reload_vimrc
   au!
   au BufWritePost *vimrc* source ~/.vimrc
@@ -88,6 +81,7 @@ augroup END
 " http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
 set wildmenu
 set wildmode=list:longest,full
+set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
 
 runtime macros/matchit.vim
 
@@ -96,9 +90,6 @@ let g:LustyJugglerSuppressRubyWarning = 1
 set shortmess=aIoO
 
 set pastetoggle=<F2>
-
-" fix <SNR>40_DiscretionaryEnd?
-let g:SuperTabDefaultCompletionType = "context"
 
 let g:solarized_termcolors=256
 set t_Co=16
@@ -132,18 +123,11 @@ au FocusLost * :wa
 
 nnoremap <leader>w <C-w>v<C-w>l
 
-set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
-
 let yankring_history_dir='~/.vim/tmp//'
 
 let g:ragtag_global_maps = 1
 
 set tags+=.git/tags
-
-" http://amix.dk/blog/post/160
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-map <leader>c :botright cw 10<cr>
 
 map <space> /
 map <m-space> ?
@@ -162,7 +146,7 @@ autocmd User Rails  Rnavcommand admin app/admin -glob=**/*
 autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_factory.rb
 
 " http://yanpritzker.com/2011/11/30/vim-demystified-ten-commands-you-can-start-using-today/
-nnoremap <silent> Z <C-^>
+nnoremap <silent> < <C-^>
 nnoremap <silent> K :GitGrep <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
