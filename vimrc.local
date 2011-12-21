@@ -83,7 +83,7 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
 
-runtime macros/matchit.vim
+runtime! macros/matchit.vim
 
 let g:LustyJugglerSuppressRubyWarning = 1
 

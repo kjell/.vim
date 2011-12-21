@@ -1,6 +1,3 @@
-set background=dark
-color solarized
-
 set go-=LRlr
 set go-=l
 set go-=L
