@@ -91,11 +91,6 @@ set shortmess=aIoO
 
 set pastetoggle=<F2>
 
-let g:solarized_termcolors=256
-set t_Co=16
-set background=dark
-color solarized
-
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 
 set relativenumber
@@ -156,3 +151,9 @@ nnoremap <silent> I <C-w>k
 nnoremap <silent> M <C-w>j
 
 set cursorline
+
+let g:solarized_termcolors=16
+set t_Co=256
+set background=dark
+color solarized
+let g:CSApprox_loaded = 1
