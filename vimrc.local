@@ -139,16 +139,12 @@ let g:fuf_buffertag__sass='--language-force=sass'
 " Rails
 autocmd User Rails  Rnavcommand admin app/admin -glob=**/*
 autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_factory.rb
+nmap _r :!touch tmp/restart<cr><cr>
 
 " http://yanpritzker.com/2011/11/30/vim-demystified-ten-commands-you-can-start-using-today/
-nnoremap <silent> < <C-^>
 nnoremap <silent> K :GitGrep <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
-nnoremap <silent> H <C-w>h
-nnoremap <silent> L <C-w>l
-nnoremap <silent> I <C-w>k
-nnoremap <silent> M <C-w>j
 
 set cursorline
 
@@ -157,3 +153,7 @@ set t_Co=256
 set background=dark
 color solarized
 let g:CSApprox_loaded = 1
+
+if &term == "screen-256-color"
+  set t_kD=
+endif
