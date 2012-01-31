@@ -154,3 +154,5 @@ color solarized
 if &term == "screen-256-color"
   set t_kD=
 endif
+
+let NERDSpaceDelims=1
