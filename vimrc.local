@@ -93,8 +93,6 @@ set pastetoggle=<F2>
 
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 
-set relativenumber
-
 nnoremap / /\v
 vnoremap / /\v
 set ignorecase
@@ -152,7 +150,6 @@ let g:solarized_termcolors=16
 set t_Co=256
 set background=dark
 color solarized
-let g:CSApprox_loaded = 1
 
 if &term == "screen-256-color"
   set t_kD=
