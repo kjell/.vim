@@ -1,11 +1,18 @@
+" ~/.vimrc
+if $SHELL =~ 'bin/fish'
+  set shell=/bin/sh
+endif
 syntax enable
+set number
+
+" set guifont=Anonymous\ Pro\ for\ Powerline:h13
 
 set shiftround
 set smarttab
 set noswapfile
 
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set listchars=tab:_.,trail:~,extends:#,nbsp:.
 
 " m is repeat motion backwards, , forwards (because I'm remapping ; to :)
 nnoremap m ,
@@ -29,6 +36,11 @@ set autoread
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
 map! jj <Esc>
 " imap jj <esc>
+imap jjk <ESC>:w<CR>
+imap kkl <ESC>:w<CR>
+imap ll; <ESC>:w<CR>
+imap ''<CR> <ESC>:w<CR>
+imap ;;' <ESC>:w<CR>
 
 " http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
 function! Preserve(command)
@@ -140,7 +152,7 @@ autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_fact
 nmap _r :!touch tmp/restart<cr><cr>
 
 " http://yanpritzker.com/2011/11/30/vim-demystified-ten-commands-you-can-start-using-today/
-nnoremap <silent> K :GitGrep <cword><CR>
+nnoremap <silent> K :Ggrep <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
@@ -156,3 +168,65 @@ if &term == "screen-256-color"
 endif
 
 let NERDSpaceDelims=1
+
+let g:ruby_conque_rspec_command='bundle exec rspec'
+
+" ctrlp
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$|public/'
+let g:ctrlp_map = '<c-y>'
+
+let g:slime_target = "tmux"
+
+" https://github.com/r00k/dotfiles/blob/master/vimrc
+
+" Use Ack instead of grep
+set grepprg=ack
+" Get rid of the delay when hitting esc!
+set noesckeys
+set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
+set nofoldenable " Say no to code folding...
+command! Q q " Bind :Q to :q
+command! Qall qall
+" Don't add the comment prefix when I hit enter or o/O on a comment line.
+set formatoptions-=or
+
+" Merge a tab into a split in the previous window
+function! MergeTabs()
+  if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  split
+  execute "buffer " . bufferName
+endfunction
+
+nmap <C-W>u :call MergeTabs()<CR>
+
+" Set up some useful Rails.vim bindings for working with Backbone.js
+autocmd User Rails Rnavcommand template    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
+autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
+
+" RENAME CURRENT FILE (thanks Gary Bernhardt)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+" END stealing from https://github.com/r00k/dotfiles/blob/master/vimrc
