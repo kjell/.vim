@@ -35,12 +35,6 @@ set autoread
 
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
 map! jj <Esc>
-" imap jj <esc>
-imap jjk <ESC>:w<CR>
-imap kkl <ESC>:w<CR>
-imap ll; <ESC>:w<CR>
-imap ''<CR> <ESC>:w<CR>
-imap ;;' <ESC>:w<CR>
 
 " http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
 function! Preserve(command)
@@ -230,3 +224,8 @@ endfunction
 map <leader>n :call RenameFile()<cr>
 
 " END stealing from https://github.com/r00k/dotfiles/blob/master/vimrc
+
+map! <esc><esc> <esc>:w<cr>
+nmap <esc><esc> <esc>:w<cr>
+map! <esc><esc><esc> <esc>:wa<cr>
+nmap <esc><esc><esc> <esc>:wa<cr>
