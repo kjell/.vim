@@ -47,6 +47,7 @@ Bundle 'coderifous/textobj-word-column.vim'
 " Bundle 'sjl/vitality.vim'
 Bundle 'tpope/vim-commentary'
 " ^ replaces Bundle 'The-NERD-Commenter'
+Bundle 'tpope/vim-eunuch'
 
 filetype plugin indent on
 
