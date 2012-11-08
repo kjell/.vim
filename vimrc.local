@@ -9,8 +9,7 @@ set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set smarttab
 set noswapfile
 
-set list
-set listchars=tab:_.,trail:~,extends:#,nbsp:.
+set list listchars=extends:→,precedes:←,nbsp:_,tab:▸\ ,trail:·
 
 " m is repeat motion backwards, , is forwards (because I'm remapping ; to :)
 nnoremap m ,
@@ -23,8 +22,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 set hidden
 
-set scrolloff=3
-set sidescrolloff=5
+set scrolloff=3 sidescrolloff=5
 set autoread
 
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
