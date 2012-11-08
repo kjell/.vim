@@ -1,36 +1,30 @@
 " ~/.vimrc
 if $SHELL =~ 'bin/fish'
-  set shell=/bin/sh
+  set shell=/usr/local/bin/bash
 endif
 syntax enable
 set number
 
-" set guifont=Anonymous\ Pro\ for\ Powerline:h13
-
-set shiftround
+set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set smarttab
 set noswapfile
 
 set list
 set listchars=tab:_.,trail:~,extends:#,nbsp:.
 
-" m is repeat motion backwards, , forwards (because I'm remapping ; to :)
+" m is repeat motion backwards, , is forwards (because I'm remapping ; to :)
 nnoremap m ,
 nnoremap , ;
 " semicolon for : and ;; for :!
 nnoremap ; :
 nnoremap ;; :!
 
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
 cmap w!! w !sudo tee % >/dev/null
 
 set hidden
 
 set scrolloff=3
+set sidescrolloff=5
 set autoread
 
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
@@ -48,10 +42,16 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
+
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
-au BufWritePre * execute 'normal _$'
+if exists("*Preserve")
+  augroup kill_whitespace
+    au!
+    au BufWritePre * execute 'normal _$'
+  augroup END
+endif
 
 set whichwrap=b,s,<,>,h,l
 
@@ -76,8 +76,8 @@ nmap sj :SplitjoinSplit<cr>
 nmap sk :SplitjoinJoin<cr>
 
 nnoremap <F5> :noh<return><esc>
+nnoremap <leader><space> :noh<cr>
 
-nmap <silent> <leader>reload :source ~/.vimrc<CR>
 nmap <leader>vimrc :vsplit ~/.vim/vimrc.local<CR>
 augroup reload_vimrc
   au!
@@ -88,10 +88,6 @@ augroup END
 set wildmenu
 set wildmode=list:longest,full
 set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
-
-runtime! macros/matchit.vim
-
-let g:LustyJugglerSuppressRubyWarning = 1
 
 set shortmess=aIoO
 
@@ -107,20 +103,13 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
-nnoremap <leader><space> :noh<cr>
 
 set colorcolumn=85
 
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
 au FocusLost * :wa
-
-nnoremap <leader>w <C-w>v<C-w>l
 
 let yankring_history_dir='~/.vim/tmp//'
 
@@ -133,20 +122,22 @@ map <m-space> ?
 
 nmap gp `[v`]
 
-nmap <leader>f :FufFileWithCurrentBufferDir<CR>
-nmap <leader>b :FufBuffer<CR>
-nmap <leader>t :FufTaggedFile<CR>
-let g:fuf_buffertag_ctagsPath='ctags'
-let g:fuf_buffertag__coffee='--language-force=coffee'
-let g:fuf_buffertag__sass='--language-force=sass'
-
 " Rails
 autocmd User Rails  Rnavcommand admin app/admin -glob=**/*
 autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_factory.rb
+
+" Backbone
+autocmd User Rails Rnavcommand template    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
+autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
+autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
+
 nmap _r :!touch tmp/restart<cr><cr>
 
 " http://yanpritzker.com/2011/11/30/vim-demystified-ten-commands-you-can-start-using-today/
-nnoremap <silent> K :Ggrep <cword><CR>
+nnoremap <silent> K :Ag <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
@@ -157,30 +148,19 @@ set t_Co=256
 set background=dark
 color solarized
 
-if &term == "screen-256-color"
+if &term == "screen256-color-bce"
   set t_kD=
 endif
-
-let NERDSpaceDelims=1
-
-let g:ruby_conque_rspec_command='bundle exec rspec'
 
 " ctrlp
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$|public/'
 let g:ctrlp_map = '<c-y>'
 
-let g:slime_target = "tmux"
-
 " https://github.com/r00k/dotfiles/blob/master/vimrc
 
-" Use Ack instead of grep
-set grepprg=ack
 " Get rid of the delay when hitting esc!
 set noesckeys
-set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 set nofoldenable " Say no to code folding...
-command! Q q " Bind :Q to :q
-command! Qall qall
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 set formatoptions-=or
 
@@ -203,16 +183,16 @@ endfunction
 nmap <C-W>u :call MergeTabs()<CR>
 
 " Set up some useful Rails.vim bindings for working with Backbone.js
-autocmd User Rails Rnavcommand template    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
-autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
-
+" #L111-117
 " END stealing from https://github.com/r00k/dotfiles/blob/master/vimrc
 
 map! <esc><esc> <esc>:w<cr>
 nmap <esc><esc> <esc>:w<cr>
 map! <esc><esc><esc> <esc>:wa<cr>
 nmap <esc><esc><esc> <esc>:wa<cr>
+
+au BufWritePost ~/Sites/resume/* silent execute '!./transform.rb'
+
+let g:NumberToggleTrigger="<C-3>"
+
+set grepprg=ag

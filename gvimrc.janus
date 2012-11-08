@@ -4,11 +4,6 @@ if has('gui_running')
 
   " Command-Return for fullscreen
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
-
-  " Include user's local vim config
-  " if filereadable(expand("~/.gvimrc.local"))
-  "   source ~/.gvimrc.local
-  " endif
 endif
 
 " Don't beep
@@ -16,9 +11,3 @@ set visualbell
 
 " Start without the toolbar
 set guioptions-=T
-
-" ConqueTerm wrapper
-function! StartTerm()
-  execute 'ConqueTerm ' . $SHELL . ' --login'
-  setlocal listchars=tab:\ \
-endfunction
