@@ -112,6 +112,13 @@ nnoremap k gk
 au FocusLost * :wa
 
 let yankring_history_dir='~/.vim/tmp//'
+let g:yankring_min_element_length = 2
+let g:yankring_replace_n_pkey = '<c-k>'
+let g:yankring_replace_n_nkey = '<c-j>'
+function! YRRunAfterMaps()
+  nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
+nmap <leader>y :YRShow<cr>
 
 let g:ragtag_global_maps = 1
 
