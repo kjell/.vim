@@ -203,3 +203,5 @@ au BufWritePost ~/Sites/resume/* silent execute '!./transform.rb'
 let g:NumberToggleTrigger="<C-3>"
 
 set grepprg=ag
+
+cnoremap <C-A> <Home>
