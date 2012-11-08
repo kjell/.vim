@@ -203,3 +203,8 @@ let g:NumberToggleTrigger="<C-3>"
 set grepprg=ag
 
 cnoremap <C-A> <Home>
+
+" https://github.com/GGLucas/configs/blob/c69bb854dc76cda723c3efbd9d1fbe6049b033c7/.vimrc#L440-442
+" TODO: only go to insert mode if the first line is empty?
+autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0]) | startinsert!
+autocmd FileType git setlocal nomodeline
