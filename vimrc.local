@@ -28,22 +28,12 @@ set autoread
 " http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
 map! jj <Esc>
 
-" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
-function! Preserve(command)
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
+" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
+" vundle isn't sourcing this?
+source ~/.vim/bundle/preserve-vim/autoload/preserve.vim
 if exists("*Preserve")
   augroup kill_whitespace
     au!
