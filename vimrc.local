@@ -80,6 +80,8 @@ nmap <leader>vimrc :vsplit ~/.vim/vimrc.local<CR>
 augroup reload_vimrc
   au!
   au BufWritePost *vimrc* source ~/.vimrc
+  " Sort my bundle declarations
+  au BufWritePost vimrc call Preserve("normal gg/Bundle '/e+1\<cr>f'guicvip!sort -nfb -k1\<cr>")
 augroup END
 
 " http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
