@@ -84,10 +84,9 @@ augroup reload_vimrc
   au BufWritePost vimrc call Preserve("normal gg/Bundle '/e+1\<cr>f'guicvip!sort -nfb -k1\<cr>")
 augroup END
 
-" http://vim.wikia.com/wiki/Great_wildmode/wildmenu_and_console_mouse
 set wildmenu
 set wildmode=list:longest,full
-set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf
+set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf,*.png,*.pdf
 
 set shortmess=aIoO
 
@@ -116,7 +115,7 @@ let g:yankring_min_element_length = 2
 let g:yankring_replace_n_pkey = '<c-k>'
 let g:yankring_replace_n_nkey = '<c-j>'
 function! YRRunAfterMaps()
-  nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
 endfunction
 nmap <leader>y :YRShow<cr>
 
@@ -133,18 +132,9 @@ nmap gp `[v`]
 autocmd User Rails  Rnavcommand admin app/admin -glob=**/*
 autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_factory.rb
 
-" Backbone
-autocmd User Rails Rnavcommand template    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
-autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
-
 nmap _r :!touch tmp/restart<cr><cr>
 
-" http://yanpritzker.com/2011/11/30/vim-demystified-ten-commands-you-can-start-using-today/
-nnoremap <silent> K :Ag <cword><CR>
+nnoremap <silent> K :Ag! <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
@@ -155,7 +145,7 @@ set t_Co=256
 set background=dark
 color solarized
 
-if &term == "screen256-color-bce"
+if &term == "screen256-color"
   set t_kD=
 endif
 
@@ -189,10 +179,6 @@ endfunction
 
 nmap <C-W>u :call MergeTabs()<CR>
 
-" Set up some useful Rails.vim bindings for working with Backbone.js
-" #L111-117
-" END stealing from https://github.com/r00k/dotfiles/blob/master/vimrc
-
 map! <esc><esc> <esc>:w<cr>
 nmap <esc><esc> <esc>:w<cr>
 map! <esc><esc><esc> <esc>:wa<cr>
@@ -200,13 +186,20 @@ nmap <esc><esc><esc> <esc>:wa<cr>
 
 au BufWritePost ~/Sites/resume/* silent execute '!./transform.rb'
 
-let g:NumberToggleTrigger="<C-3>"
+let g:NumberToggleTrigger="<leader>3"
 
 set grepprg=ag
 
 cnoremap <C-A> <Home>
 
 " https://github.com/GGLucas/configs/blob/c69bb854dc76cda723c3efbd9d1fbe6049b033c7/.vimrc#L440-442
-" TODO: only go to insert mode if the first line is empty?
-autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0]) | startinsert!
-autocmd FileType git setlocal nomodeline
+augroup git_files
+  au!
+  autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+  autocmd BufEnter *.git/*MSG startinsert!
+  autocmd FileType git setlocal nomodeline
+augroup END
+
+" https://github.com/chastell/dotfiles/blob/2cb5eb97f43a621178e31d1c7c4a47ae00e07a93/.vimrc#L58-59
+inoremap (( ()<left>
+inoremap {{ {}<left>
