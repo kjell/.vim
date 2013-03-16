@@ -2,14 +2,9 @@
 if $SHELL =~ 'bin/fish'
   set shell=/usr/local/bin/bash
 endif
-syntax enable
-set number
 
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
-set smarttab
 set noswapfile
-
-set list listchars=extends:→,precedes:←,nbsp:_,tab:▸\ ,trail:·
 
 " m is repeat motion backwards, , is forwards (because I'm remapping ; to :)
 nnoremap m ,
@@ -21,12 +16,6 @@ nnoremap ;; :!
 cmap w!! w !sudo tee % >/dev/null
 
 set hidden
-
-set scrolloff=3 sidescrolloff=5
-set autoread
-
-" http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks
-map! jj <Esc>
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
@@ -43,28 +32,11 @@ endif
 
 set whichwrap=b,s,<,>,h,l
 
-set backup
-set backupcopy=yes
-set backupskip=/tmp/*,~/.vim/backup/*
-set backupdir=~/.vim/tmp/backup//
-au BufWritePre <buffer> let &backupext = '~' . localtime()
-function! DeleteOldBackups()
-  " Delete backups over 14 days old
-  call system('find ~/.vim/backup -mtime +14 -exec rm "{}" \;')
-endfunction
-au VimLeave * call DeleteOldBackups()
-set undofile
-set undodir=~/.vim/tmp/undo//
-set directory=~/.vim/tmp//
-
 source ~/.simplenoterc
 
 " https://github.com/AndrewRadev/splitjoin.vim/blob/master/doc/splitjoin.txt
 nmap sj :SplitjoinSplit<cr>
 nmap sk :SplitjoinJoin<cr>
-
-nnoremap <F5> :noh<return><esc>
-nnoremap <leader><space> :noh<cr>
 
 nmap <leader>vimrc :vsplit ~/.vim/vimrc.local<CR>
 augroup reload_vimrc
@@ -76,7 +48,7 @@ augroup END
 
 set wildmenu
 set wildmode=list:longest,full
-set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf,*.png,*.pdf
+set wildignore+=*.o,*.obj,.git,*.pyc,*.otf,*.ttf,*.png,*.pdf,tmp,*.gz
 
 set shortmess=aIoO
 
@@ -86,17 +58,10 @@ set pastetoggle=<F2>
 
 nnoremap / /\v
 vnoremap / /\v
-set ignorecase
-set smartcase
 set gdefault
-set incsearch
-set showmatch
 set hlsearch
 
 set colorcolumn=85
-
-nnoremap j gj
-nnoremap k gk
 
 au FocusLost * :wa
 
@@ -110,8 +75,6 @@ endfunction
 nmap <leader>y :YRShow<cr>
 
 let g:ragtag_global_maps = 1
-
-set tags+=.git/tags
 
 map <space> /
 map <m-space> ?
@@ -131,7 +94,6 @@ nnoremap <silent> ss <C-w>s
 set cursorline
 
 let g:solarized_termcolors=16
-set t_Co=256
 set background=dark
 color solarized
 
@@ -151,24 +113,6 @@ set nofoldenable " Say no to code folding...
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 set formatoptions-=or
 
-" Merge a tab into a split in the previous window
-function! MergeTabs()
-  if tabpagenr() == 1
-    return
-  endif
-  let bufferName = bufname("%")
-  if tabpagenr("$") == tabpagenr()
-    close!
-  else
-    close!
-    tabprev
-  endif
-  split
-  execute "buffer " . bufferName
-endfunction
-
-nmap <C-W>u :call MergeTabs()<CR>
-
 map! <esc><esc> <esc>:w<cr>
 nmap <esc><esc> <esc>:w<cr>
 map! <esc><esc><esc> <esc>:wa<cr>
@@ -176,10 +120,12 @@ nmap <esc><esc><esc> <esc>:wa<cr>
 
 au BufWritePost ~/Sites/resume/* silent execute '!./transform.rb'
 
+" Toggle relative line numbers
 let g:NumberToggleTrigger="<leader>3"
 
 set grepprg=ag
 
+" ctrl-a to beginning of command line
 cnoremap <C-A> <Home>
 
 " https://github.com/GGLucas/configs/blob/c69bb854dc76cda723c3efbd9d1fbe6049b033c7/.vimrc#L440-442
