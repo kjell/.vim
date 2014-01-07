@@ -24,10 +24,10 @@ nmap _= :call Preserve("normal gg=G")<CR>
 " vundle isn't sourcing this?
 source ~/.vim/bundle/preserve-vim/autoload/preserve.vim
 if exists("*Preserve")
-  augroup kill_whitespace
-    au!
-    au BufWritePre * execute 'normal _$'
-  augroup END
+  " augroup kill_whitespace
+  "   au!
+  "   au BufWritePre * execute 'normal _$'
+  " augroup END
 endif
 
 set whichwrap=b,s,<,>,h,l
@@ -43,7 +43,7 @@ augroup reload_vimrc
   au!
   au BufWritePost *vimrc* source ~/.vimrc
   " Sort my bundle declarations
-  au BufWritePost vimrc call Preserve("normal gg/Bundle '/e+1\<cr>f'guicvip!sort -nfb -k1\<cr>")
+  au BufWritePost *vimrc call Preserve("normal gg/Bundle '/e+1\<cr>f'guicvip!sort -nfb -k1\<cr>")
 augroup END
 
 set wildmenu
@@ -65,14 +65,10 @@ set colorcolumn=85
 
 au FocusLost * :wa
 
-let yankring_history_dir='~/.vim/tmp//'
-let g:yankring_min_element_length = 2
-let g:yankring_replace_n_pkey = '<c-k>'
-let g:yankring_replace_n_nkey = '<c-j>'
-function! YRRunAfterMaps()
-  nnoremap <silent> Y   :<C-U>YRYankCount 'y$'<CR>
-endfunction
-nmap <leader>y :YRShow<cr>
+call yankstack#setup()
+nmap Y y$
+nmap <c-p> <Plug>yankstack_substitute_older_paste
+nmap <c-P> <Plug>yankstack_substitute_older_paste
 
 let g:ragtag_global_maps = 1
 
@@ -87,7 +83,7 @@ autocmd User Rails  Rnavcommand factory spec/factories/ -glob=**/* -suffix=_fact
 
 nmap _r :!touch tmp/restart<cr><cr>
 
-nnoremap <silent> K :Ag! <cword><CR>
+nnoremap <silent> L :Ag! <cword><CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
@@ -109,9 +105,9 @@ let g:ctrlp_map = '<c-y>'
 
 " Get rid of the delay when hitting esc!
 set noesckeys
-set nofoldenable " Say no to code folding...
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 set formatoptions-=or
+set nofoldenable " bye bye folding
 
 map! <esc><esc> <esc>:w<cr>
 nmap <esc><esc> <esc>:w<cr>
@@ -136,6 +132,19 @@ augroup git_files
   autocmd FileType git setlocal nomodeline
 augroup END
 
-" https://github.com/chastell/dotfiles/blob/2cb5eb97f43a621178e31d1c7c4a47ae00e07a93/.vimrc#L58-59
-inoremap (( ()<left>
-inoremap {{ {}<left>
+autocmd BufNewFile,BufRead *.fish,~/.fish set filetype=fish
+
+" change tabs to spaces: :%!expand -t2
+" ^ is stupid, :retab
+
+au FileType php set keywordprg=pman
+
+augroup reload_apache
+  au!
+  au BufWritePost ~/Sites/*.conf !sudo apachectl -S && sudo apachectl graceful
+  au BufWritePost .htaccess !sudo apachectl -S && sudo apachectl graceful
+augroup END
+
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+autocmd BufNewFile,BufRead Makefile set noexpandtab shiftwidth=4 softtabstop=0
